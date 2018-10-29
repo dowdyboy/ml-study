@@ -1,6 +1,6 @@
 package ml.common
 
-import breeze.linalg.{Axis, DenseMatrix}
+import breeze.linalg._
 
 import scala.io.Source
 
@@ -13,24 +13,47 @@ case class CustomSplitType(split:String) extends FileSplitType
 object Utils {
 
   // 根据文件路径创建数据集
-  def createDataSet(path: String,labelIndex:Int,fileType:FileSplitType = CsvSplitType) = {
+  def createDataSet(path: String,columnCount:Int,labelIndex:Int,fileType:FileSplitType = CsvSplitType) = {
+    import java.util.ArrayList
     val source = Source.fromFile(path)
-    val dataSetArray:Array[Array[String]] = source.getLines().map{line =>
-      fileType match {
+    val dataSetArrayList = new ArrayList[Array[String]]()
+    source.getLines().foreach{line=>
+      val columnArray = fileType match {
         case CsvSplitType => line.split(",")
         case TsvSplitType => line.split("\t")
         case CustomSplitType(split) => line.split(split)
         case _ => throw new RuntimeException("not support this type")
       }
-    }.toArray
+      if(line != null && !line.equals("") && columnArray.length == columnCount){
+        dataSetArrayList.add(columnArray)
+      }
+    }
     source.close()
-    val origDataSet = (dataSetArray.length > 0) match {
-      case true => DenseMatrix.tabulate(dataSetArray.length,dataSetArray(0).length){(i,j)=>dataSetArray(i)(j)}
+    val origDataSet = (dataSetArrayList.size() > 0) match {
+      case true => DenseMatrix.tabulate(dataSetArrayList.size(),dataSetArrayList.get(0).length){(i,j)=>(dataSetArrayList.get(i))(j)}
       case false => throw new RuntimeException("there is no data")
     }
     val labelVector = origDataSet(::,labelIndex)
     val targetDataSet = origDataSet.delete(labelIndex,Axis._1)
     (targetDataSet,labelVector,origDataSet)
+  }
+
+  // 归一化矩阵
+  def norm(dataSet:DenseMatrix[Double]) = {
+    // 计算各个特征最小值
+    val minVect = min(dataSet,Axis._0).inner
+    // 计算各个特征最大值
+    val maxVect = max(dataSet,Axis._0).inner
+    // 计算各个特征数值范围
+    val rangeVect = maxVect - minVect
+    // 计算归一化矩阵
+    val normDataSet = (dataSet - tile(minVect.t,1,dataSet.rows)) /:/ tile(rangeVect.t,1,dataSet.rows)
+    (normDataSet,rangeVect,minVect)
+  }
+
+  // 归一化向量
+  def norm(vect:DenseVector[Double],minVect:DenseVector[Double],rangeVect:DenseVector[Double]) = {
+    (vect - minVect) /:/ rangeVect
   }
 
 }
