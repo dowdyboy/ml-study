@@ -4,6 +4,7 @@ import java.io.{BufferedWriter, File, FileOutputStream, OutputStreamWriter}
 
 import ml.common.{TsvSplitType, Utils}
 import ml.method.Knn
+import viz.DatingViz
 
 import scala.io.Source
 
@@ -72,7 +73,7 @@ object Main {
   }
 
   def main(args: Array[String]): Unit = {
-
+    DatingViz.datingDataScatter
   }
 
 }
