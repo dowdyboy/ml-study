@@ -2,9 +2,10 @@ package ml
 
 import java.io.{BufferedWriter, File, FileOutputStream, OutputStreamWriter}
 
+import breeze.linalg.DenseVector
 import ml.common.{TsvSplitType, Utils}
-import ml.method.Knn
-import viz.DatingViz
+import ml.method.{DecisionTree, Knn}
+import play.api.libs.json.Json
 
 import scala.io.Source
 
@@ -41,6 +42,7 @@ object Main {
     println(s"the right percent is ${rightCount.toDouble / testDataSet.rows.toDouble * 100}%")
   }
 
+  // 合并数字文件
   def createDigitsSingleFile() = {
     val dir = new File("assets/knn/testDigits")
     val outFile = new File("assets/knn/testDigits.txt")
@@ -58,6 +60,7 @@ object Main {
     bw.close()
   }
 
+  // KNN算法分类数字数据
   def knnDigitsClassify() = {
     val (dataSet,label,_) = Utils.createDataSet("assets/knn/trainingDigits.txt",1025,1024)
     val knn = new Knn(dataSet.map(_.toDouble),label,10)
@@ -72,8 +75,22 @@ object Main {
     println(s"the right percent is ${rightCount.toDouble / testDataSet.rows.toDouble * 100}%")
   }
 
+  // 决策树ID3算法测试--分类是否海洋动物
+  def decisionTreeOceanTestClassify = {
+    val (ds,lb,_) = Utils.createDataSet("assets/decision_tree/ocean_test.txt",3,2)
+    val dt = new DecisionTree(ds,lb)
+    println(dt.classify(DenseVector("1","1")))
+  }
+
+  // 决策树ID3算法分类眼镜类型
+  def decisionTreeLensesClassify = {
+    val (ds,lb,_) = Utils.createDataSet("assets/decision_tree/lenses.txt",5,4,TsvSplitType)
+    val dt = new DecisionTree(ds,lb)
+    println(dt.classify(DenseVector("pre","myope","yes","reduced")))
+  }
+
   def main(args: Array[String]): Unit = {
-    DatingViz.datingDataScatter
+    decisionTreeLensesClassify
   }
 
 }

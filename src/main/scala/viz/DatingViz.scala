@@ -6,6 +6,7 @@ import ml.common.{TsvSplitType, Utils}
 
 object DatingViz {
 
+  // 测试Breeze-viz
   def test = {
     val f = Figure()
     val p = f.subplot(0)
@@ -20,6 +21,7 @@ object DatingViz {
     f.saveas("test.png")
   }
 
+  // 画约会数据散点图
   def datingDataScatter = {
     val (_,_,dataset) = Utils.createDataSet("assets/knn/datingTrainSet.txt",4,3,TsvSplitType)
     var largeDosesFlyMile = Seq[Double]()

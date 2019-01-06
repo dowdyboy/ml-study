@@ -10,5 +10,5 @@ libraryDependencies += "org.scalanlp" %% "breeze" % "0.13.2"
 libraryDependencies += "org.scalanlp" %% "breeze-natives" % "0.13.2"
 // https://mvnrepository.com/artifact/org.scalanlp/breeze-viz
 libraryDependencies += "org.scalanlp" %% "breeze-viz" % "0.13.2"
-
-
+// https://mvnrepository.com/artifact/com.typesafe.play/play-json
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.9"
