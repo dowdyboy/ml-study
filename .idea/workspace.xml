@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f2b41c2-d861-43b3-985c-816b1505a3ec" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_annotations_2_8_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_core_2_8_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_core_jackson_databind_2_8_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_8_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_8_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_functional_2_12_2_6_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_typesafe_play_play_json_2_12_2_6_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__joda_time_joda_time_2_9_9_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/decision_tree/lenses.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/decision_tree/ocean_test.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dl/Main.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/ml_study.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ml_study.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/ml/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/ml/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/viz/DatingViz.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/viz/DatingViz.scala" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,11 +27,12 @@
     <session id="43798870">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,7 +44,7 @@
           <entry key="png" value="2" />
           <entry key="properties" value="3" />
           <entry key="sbt" value="4" />
-          <entry key="scala" value="17" />
+          <entry key="scala" value="22" />
           <entry key="txt" value="32" />
         </counts>
       </usages-collector>
@@ -66,48 +56,42 @@
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="33" />
           <entry key="Properties" value="3" />
-          <entry key="Scala" value="17" />
+          <entry key="Scala" value="22" />
           <entry key="sbt" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="sbt" value="6" />
-          <entry key="scala" value="10072" />
+          <entry key="scala" value="10574" />
           <entry key="txt" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="109" />
-          <entry key="Scala" value="10072" />
+          <entry key="Scala" value="10574" />
           <entry key="sbt" value="6" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/ml/Main.scala">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
-              <folding>
-                <element signature="e#12#87#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="161">
+              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="107">
-              <caret line="67" column="10" lean-forward="true" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-              <folding>
-                <element signature="e#19#66#0" expanded="true" />
-              </folding>
+              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -129,8 +113,11 @@
         <option value="$PROJECT_DIR$/src/main/scala/viz/DatingViz.scala" />
         <option value="$PROJECT_DIR$/assets/decision_tree/ocean_test.txt" />
         <option value="$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/ml/Main.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ml/Main.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/dl/Perceptron.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/dl/Main.scala" />
       </list>
     </option>
   </component>
@@ -140,7 +127,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -152,25 +139,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
               <item name="ml_study" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ml_study" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ml_study" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="decision_tree" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
@@ -183,22 +159,32 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ml_study" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="scala" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546758421175" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547562993409" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dl.basic" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\ideaworkspace\ml_study\assets\decision_tree" />
       <recent name="D:\ideaworkspace\ml_study\assets\knn" />
@@ -251,6 +237,7 @@
     </option>
     <option name="modificationStamps">
       <map>
+        <entry key="$PROJECT_DIR$" value="3086885030330" />
         <entry key="$PROJECT_DIR$/build.sbt" value="2036039384" />
         <entry key="$PROJECT_DIR$/project/build.properties" value="1075804536" />
       </map>
@@ -277,18 +264,19 @@
       <workItem from="1540709422320" duration="31864000" />
       <workItem from="1544369018641" duration="10195000" />
       <workItem from="1546173256042" duration="14825000" />
-      <workItem from="1546528988967" duration="6126000" />
+      <workItem from="1546528988967" duration="10114000" />
+      <workItem from="1547371063171" duration="9096000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63010000" />
+    <option name="totallyTimeSpent" value="76094000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26096824" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -298,7 +286,7 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.25245902" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.25245902" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -512,23 +500,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
+          <folding>
+            <element signature="e#19#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/ml/Main.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+        <state relative-caret-position="339">
+          <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
           <folding>
             <element signature="e#12#87#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Perceptron.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Main.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
-          <caret line="67" column="10" lean-forward="true" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-          <folding>
-            <element signature="e#19#66#0" expanded="true" />
-          </folding>
+          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
         </state>
       </provider>
     </entry>

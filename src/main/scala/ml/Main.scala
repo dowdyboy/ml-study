@@ -89,8 +89,8 @@ object Main {
     println(dt.classify(DenseVector("pre","myope","yes","reduced")))
   }
 
-  def main(args: Array[String]): Unit = {
-    decisionTreeLensesClassify
-  }
+//  def main(args: Array[String]): Unit = {
+//    decisionTreeLensesClassify
+//  }
 
 }
