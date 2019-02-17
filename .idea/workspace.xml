@@ -2,11 +2,61 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f2b41c2-d861-43b3-985c-816b1505a3ec" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dl/Main.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ml_study.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/ml_study.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/10.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/11.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/12.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/13.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/14.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/15.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/16.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/17.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/18.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/19.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/20.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/21.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/22.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/23.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/24.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/25.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/7.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/ham/9.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/10.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/11.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/12.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/13.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/14.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/15.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/16.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/17.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/18.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/19.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/20.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/21.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/22.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/23.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/24.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/25.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/6.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/7.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/8.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/simple_bayes/spam/9.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/ml/method/SimpleBayes.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/dl/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/dl/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/ml/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/ml/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -27,71 +77,88 @@
     <session id="43798870">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="5" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LICENSE" value="1" />
-          <entry key="class" value="24" />
-          <entry key="java" value="1" />
+          <entry key="class" value="35" />
+          <entry key="java" value="2" />
           <entry key="md" value="2" />
           <entry key="png" value="2" />
           <entry key="properties" value="3" />
           <entry key="sbt" value="4" />
-          <entry key="scala" value="22" />
-          <entry key="txt" value="32" />
+          <entry key="scala" value="28" />
+          <entry key="txt" value="44" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CLASS" value="24" />
+          <entry key="CLASS" value="35" />
           <entry key="Image" value="2" />
-          <entry key="JAVA" value="1" />
+          <entry key="JAVA" value="2" />
           <entry key="Markdown" value="2" />
-          <entry key="PLAIN_TEXT" value="33" />
+          <entry key="PLAIN_TEXT" value="45" />
           <entry key="Properties" value="3" />
-          <entry key="Scala" value="22" />
+          <entry key="Scala" value="28" />
           <entry key="sbt" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="sbt" value="6" />
-          <entry key="scala" value="10574" />
+          <entry key="scala" value="14135" />
           <entry key="txt" value="109" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="109" />
-          <entry key="Scala" value="10574" />
+          <entry key="Scala" value="14135" />
           <entry key="sbt" value="6" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Main.scala">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/ml/Main.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+            <state relative-caret-position="213">
+              <caret line="118" column="3" lean-forward="true" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
+              <folding>
+                <element signature="e#12#87#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+            <state relative-caret-position="50">
+              <caret line="74" column="74" selection-start-line="74" selection-start-column="74" selection-end-line="74" selection-end-column="74" />
+              <folding>
+                <element signature="e#19#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/ml/method/SimpleBayes.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -112,12 +179,13 @@
         <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/viz/DatingViz.scala" />
         <option value="$PROJECT_DIR$/assets/decision_tree/ocean_test.txt" />
-        <option value="$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ml/method/DecisionTree.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/ml/Main.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/dl/Perceptron.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ml/method/SimpleBayes.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/dl/Main.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ml/Main.scala" />
       </list>
     </option>
   </component>
@@ -140,13 +208,24 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
               <item name="ml_study" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ml_study" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ml_study" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="simple_bayes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ml_study" type="b2602c69:ProjectViewProjectNode" />
@@ -170,13 +249,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547562993409" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550408588868" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
@@ -186,6 +265,7 @@
       <recent name="dl.basic" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ideaworkspace\ml_study\assets\simple_bayes" />
       <recent name="D:\ideaworkspace\ml_study\assets\decision_tree" />
       <recent name="D:\ideaworkspace\ml_study\assets\knn" />
     </key>
@@ -265,18 +345,20 @@
       <workItem from="1544369018641" duration="10195000" />
       <workItem from="1546173256042" duration="14825000" />
       <workItem from="1546528988967" duration="10114000" />
-      <workItem from="1547371063171" duration="9096000" />
+      <workItem from="1547371063171" duration="12206000" />
+      <workItem from="1549890763064" duration="602000" />
+      <workItem from="1550058828587" duration="17361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76094000" />
+    <option name="totallyTimeSpent" value="97167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2647504" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2655068" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -286,14 +368,14 @@
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.25245902" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.20655738" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.3289689" />
       <window_info anchor="bottom" id="sbt-shell-toolwindow" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3295082" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.3295082" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" />
@@ -476,16 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-          <folding>
-            <element signature="e#19#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/decision_tree/lenses.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="276">
@@ -504,40 +576,121 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
           <caret line="70" column="32" selection-start-line="70" selection-start-column="32" selection-end-line="70" selection-end-column="32" />
-          <folding>
-            <element signature="e#19#66#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/Main.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Perceptron.scala" />
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.12/jars/breeze_2.12-0.13.2.jar!/breeze/linalg/VectorConstructors.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
-          <folding>
-            <element signature="e#12#87#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="115">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Perceptron.scala">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.12/jars/breeze_2.12-0.13.2.jar!/breeze/linalg/DenseVector.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Main.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/dl/basic/Perceptron.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        <state relative-caret-position="23">
+          <caret line="7" column="18" lean-forward="true" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.4.jar!/scala/collection/SeqLike.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dl/Main.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="5" lean-forward="true" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/10.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="67" lean-forward="true" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/14.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/25.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/21.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.4.jar!/scala/io/Source.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/22.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/19.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/5.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/simple_bayes/ham/4.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="58" lean-forward="true" selection-start-line="2" selection-start-column="58" selection-end-line="2" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3119">
+          <caret line="106" column="13" selection-start-line="106" selection-start-column="13" selection-end-line="106" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/common/Utils.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="74" column="74" selection-start-line="74" selection-start-column="74" selection-end-line="74" selection-end-column="74" />
+          <folding>
+            <element signature="e#19#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/method/SimpleBayes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ml/Main.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="118" column="3" lean-forward="true" selection-start-line="118" selection-start-column="3" selection-end-line="118" selection-end-column="3" />
+          <folding>
+            <element signature="e#12#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

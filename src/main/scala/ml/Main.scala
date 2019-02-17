@@ -4,7 +4,7 @@ import java.io.{BufferedWriter, File, FileOutputStream, OutputStreamWriter}
 
 import breeze.linalg.DenseVector
 import ml.common.{TsvSplitType, Utils}
-import ml.method.{DecisionTree, Knn}
+import ml.method.{DecisionTree, Knn, SimpleBayes}
 import play.api.libs.json.Json
 
 import scala.io.Source
@@ -89,8 +89,33 @@ object Main {
     println(dt.classify(DenseVector("pre","myope","yes","reduced")))
   }
 
-//  def main(args: Array[String]): Unit = {
-//    decisionTreeLensesClassify
-//  }
+  // 朴素贝叶斯分类侮辱性英文句子
+  def simpleBayesStupidWords = {
+    val data = Seq(
+      Seq("my","dog","has","flea","problems","help","please"),
+      Seq("maybe","not","take","him","to","dog","park","stupid"),
+      Seq("my","dalmation","is","so","cute","I","love","him"),
+      Seq("stop","posting","stupid","worthless","garbage"),
+      Seq("mr","licks","ate","my","steak","how","to","stop","him"),
+      Seq("quit","buying","worthless","dog","food","stupid")
+    )
+    val label = Seq("0","1","0","1","0","1")
+    val sb = new SimpleBayes(data,label)
+    println(sb.classify(Seq("love","my","dalmation")))
+    println(sb.classify(Seq("stupid","garbage")))
+  }
+
+  // 朴素贝叶斯分类垃圾邮件
+  def simpleBayesGarbageEmails = {
+    val d = Utils.SimpleBayes.readEmailFile
+    val sb = new SimpleBayes(d._1,d._2)
+    (0 until d._3.length).foreach(i=>{
+      println(s"classify label : ${sb.classify(d._3(i))} , real Label : ${d._4(i)}")
+    })
+  }
+
+  def main(args: Array[String]): Unit = {
+    (0 to 100).foreach(i=>{simpleBayesGarbageEmails})
+  }
 
 }

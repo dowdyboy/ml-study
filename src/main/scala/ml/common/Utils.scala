@@ -1,8 +1,13 @@
 package ml.common
 
+import java.io.File
+import java.util
+import java.util.Collections
+
 import breeze.linalg._
 
 import scala.io.Source
+import scala.util.Random
 
 trait FileSplitType
 case object CsvSplitType extends FileSplitType
@@ -54,6 +59,31 @@ object Utils {
   // 归一化向量
   def norm(vect:DenseVector[Double],minVect:DenseVector[Double],rangeVect:DenseVector[Double]) = {
     (vect - minVect) /:/ rangeVect
+  }
+
+  object SimpleBayes {
+
+    def readEmailFile = {
+      val hamDir = new File("assets/simple_bayes/ham")
+      val spamDir = new File("assets/simple_bayes/spam")
+      val hamDataSeq = Random.shuffle(hamDir.listFiles().toSeq).map(f=>{
+        Source.fromFile(f,"GBK").getLines().flatMap(line=>{
+          line.split("\\W").toSeq.map(_.toLowerCase()).filter(_.length>2)
+        }).toSeq
+      })
+      val hamLabelSeq = Seq.fill(hamDataSeq.length)("ham")
+      val spamDataSeq = Random.shuffle(spamDir.listFiles().toSeq).map(f=>{
+        Source.fromFile(f,"GBK").getLines().flatMap(line=>{
+          line.split("\\W").toSeq.map(_.toLowerCase()).filter(_.length>2)
+        }).toSeq
+      })
+      val spamLabelSeq = Seq.fill(spamDataSeq.length)("spam")
+      val trainDataSeq = hamDataSeq.drop(2) ++ spamDataSeq.drop(3)
+      val trainLabelSeq = hamLabelSeq.drop(2) ++ spamLabelSeq.drop(3)
+      val testDataSeq = hamDataSeq.take(2) ++ spamDataSeq.take(3)
+      val testLabelSeq = hamLabelSeq.take(2) ++ spamLabelSeq.take(3)
+      (trainDataSeq,trainLabelSeq,testDataSeq,testLabelSeq)
+    }
   }
 
 }
