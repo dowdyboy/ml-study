@@ -2,10 +2,11 @@ package ml
 
 import java.io.{BufferedWriter, File, FileOutputStream, OutputStreamWriter}
 
-import breeze.linalg.DenseVector
+import breeze.linalg.{DenseMatrix, DenseVector}
 import ml.common.{TsvSplitType, Utils}
-import ml.method.{DecisionTree, Knn, SimpleBayes}
+import ml.method.{DecisionTree, Knn, LogisticRegression, SimpleBayes}
 import play.api.libs.json.Json
+import viz.DatingViz
 
 import scala.io.Source
 
@@ -114,8 +115,39 @@ object Main {
     })
   }
 
+  // logistic回归，随机梯度上升法
+  def logisticRegressionRandomGradientRise = {
+    val (dataMat,labelVec,_) = Utils.createDataSet("assets/logistic_regression/testSet.txt",3,2,TsvSplitType)
+    val realDataMat = DenseMatrix.tabulate(dataMat.rows,dataMat.cols+1){(x,y)=>
+      if(y == 0) 1.0
+      else dataMat(x,y-1).toDouble
+    }
+    val lr = new LogisticRegression(realDataMat,labelVec)
+    DatingViz.logisticRegressionTestDataSetView(lr.weights)
+  }
+
+  // logistic回归，马死亡率预测
+  def logisticRegressionHorseColic = {
+    var errPercents = Seq[Double]()
+    val loopCount = 30
+    (0 until loopCount).foreach{x=>
+      val (trainData,trainLabels,_) = Utils.createDataSet("assets/logistic_regression/horseColicTraining.txt",22,21,TsvSplitType)
+      val lr = new LogisticRegression(trainData.map(_.toDouble),trainLabels)
+      val (testData,testLabels,_) = Utils.createDataSet("assets/logistic_regression/horseColicTest.txt",22,21,TsvSplitType)
+      var errNo:Double = 0
+      (0 until testData.rows).foreach{i=>
+        val classifyLabel = lr.classify(testData(i,::).inner.map(_.toDouble))
+        if(classifyLabel != testLabels(i).toDouble) errNo += 1
+      }
+      val per = errNo / testData.rows.toDouble * 100
+      errPercents = errPercents :+ per
+      println(s"the error percent is : ${per}%")
+    }
+    println(s"the average error percent of ${loopCount} loop is : ${errPercents.reduce(_ + _) / loopCount.toDouble}%")
+  }
+
   def main(args: Array[String]): Unit = {
-    (0 to 100).foreach(i=>{simpleBayesGarbageEmails})
+    logisticRegressionHorseColic
   }
 
 }

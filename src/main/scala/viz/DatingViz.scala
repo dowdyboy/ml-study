@@ -1,6 +1,7 @@
 package viz
 
 import breeze.linalg._
+import breeze.numerics.sigmoid
 import breeze.plot._
 import ml.common.{TsvSplitType, Utils}
 
@@ -55,6 +56,57 @@ object DatingViz {
       (i:Int)=>{1000},
       (i:Int)=>{PaintScale.red})
     f.saveas("datingDataScatter.png")
+  }
+
+  def sigmoidView() = {
+    val f = Figure()
+    val p = f.subplot(0)
+    val x = linspace(-10,10)
+    p += plot(x,sigmoid(x))
+    p.xlabel = "x"
+    p.ylabel = "y"
+    f.saveas("sigmoid.png")
+  }
+
+  def logisticRegressionTestDataSetView(weightsMat:DenseVector[Double]) = {
+    val (_,_,dataset) = Utils.createDataSet("assets/logistic_regression/testSet.txt",3,2,TsvSplitType)
+    var zeroX = Seq[Double]()
+    var zeroY = Seq[Double]()
+    var oneX = Seq[Double]()
+    var oneY = Seq[Double]()
+    (0 until dataset.rows).foreach{i =>
+      dataset(i,2) match {
+        case "0" =>
+          zeroX = zeroX :+ dataset(i,0).toDouble
+          zeroY = zeroY :+ dataset(i,1).toDouble
+        case "1" =>
+          oneX = oneX :+ dataset(i,0).toDouble
+          oneY = oneY :+ dataset(i,1).toDouble
+        case _ =>
+      }
+    }
+    val f = Figure()
+    val p = f.subplot(0)
+    p += scatter(
+      new DenseVector[Double](zeroX.toArray),
+      new DenseVector[Double](zeroY.toArray),
+      (i:Int)=>{0.1},
+      (i:Int)=>{PaintScale.blue}
+    )
+    p += scatter(
+      new DenseVector[Double](oneX.toArray),
+      new DenseVector[Double](oneY.toArray),
+      (i:Int)=>{0.1},
+      (i:Int)=>{PaintScale.red}
+    )
+    val weightsX = linspace(-3.0,3.0)
+    val weightsY = weightsX.map{x=>
+      (-weightsMat(0) - weightsMat(1)*x) / weightsMat(2)
+    }
+    p += plot(weightsX,weightsY)
+    p.xlabel = "x"
+    p.ylabel = "y"
+    f.saveas("testdata.png")
   }
 
 }
