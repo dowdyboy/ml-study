@@ -22,8 +22,7 @@ object NeuralNetwork {
                           batSize:Int,
                           activeFunction:ActiveFunction,
                           outputFunction:ActiveFunction,
-                          lossFunction:LossFunction,
-                          argsFileNameOpt:Option[String]
+                          lossFunction:LossFunction
                         )
   case class PredictConf(activeFunction:ActiveFunction,outputFunction:ActiveFunction)
 

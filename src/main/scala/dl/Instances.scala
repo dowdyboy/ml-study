@@ -5,12 +5,15 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import breeze.linalg._
+import com.typesafe.scalalogging.Logger
 import dl.common.IdxFormatReader
-import dl.network.{FullJoinNetwork, NeuralNetwork}
+import dl.network.{FullJoinNetwork, FullJoinNetworkConf, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
 
 object Instances {
+
+  val logger = Logger(this.getClass)
 
   def idxFormatReaderTest = {
     val idx = IdxFormatReader.fromFile("assets/mnist/t10k-images.idx3-ubyte")
@@ -46,22 +49,44 @@ object Instances {
     }
   }
 
-  def testFullJoinNetwork = {
-    val imagesIdx = IdxFormatReader.fromFile("assets/mnist/t10k-images.idx3-ubyte")
-    val imagesMatrix = DenseMatrix.tabulate(imagesIdx.dimensionsSize(0),imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)){(i,j)=>
+  def testFullJoinNetwork(trainImagePath:String,trainLabelPath:String,argsFilePath:String) = {
+    var imagesIdx = IdxFormatReader.fromFile(trainImagePath)
+    var imagesMatrix = DenseMatrix.tabulate(imagesIdx.dimensionsSize(0),imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)){(i,j)=>
       imagesIdx.data(i*imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)+j).asInstanceOf[Int]
     }
-    val labelsIdx = IdxFormatReader.fromFile("assets/mnist/t10k-labels.idx1-ubyte")
-    val labelsVector = DenseVector[Int](labelsIdx.data.map(_.toString.toInt).toArray)
-    val labelsMatrix = DenseMatrix.tabulate(labelsVector.length,10){(x,y)=>
+    imagesIdx = null
+    var labelsIdx = IdxFormatReader.fromFile(trainLabelPath)
+    var labelsVector = DenseVector[Int](labelsIdx.data.map(_.toString.toInt).toArray)
+    var labelsMatrix = DenseMatrix.tabulate(labelsVector.length,10){(x,y)=>
       if(labelsVector(x) == y) 1 else 0
     }
+    labelsIdx = null
 
-    val network = new FullJoinNetwork(Seq(784,100,10))
+    System.gc()
+
+    val imagesMatrixInput = imagesMatrix.map(_.toDouble)
+    imagesMatrix = null
+    val labelsMatrixInput = labelsMatrix.map(_.toDouble)
+    labelsVector = null
+    labelsMatrix = null
+
+    System.gc()
+
+    val network = new FullJoinNetwork(
+      Seq(784,100,10),
+      FullJoinNetworkConf(
+        argsFilePathOpt = Some(argsFilePath),
+        onPracticeIterStartOpt = Some(i=>{
+          logger.info(s"practice iter ${i} start.")
+        }),
+        onPracticeIterEndOpt = Some(i=>{
+          logger.info(s"practice iter ${i} end.")
+        }))
+    )
     network.practice(
-      imagesMatrix.map(_.toDouble),
-      labelsMatrix.map(_.toDouble),
-      PracticeConf(1000,0.01,100,NeuralNetwork.Sigmoid,NeuralNetwork.Softmax,NeuralNetwork.CrossEntropyError,Some("args.txt"))
+      imagesMatrixInput,
+      labelsMatrixInput,
+      PracticeConf(10000,0.1,100,NeuralNetwork.Sigmoid,NeuralNetwork.Softmax,NeuralNetwork.CrossEntropyError)
     )
   }
 

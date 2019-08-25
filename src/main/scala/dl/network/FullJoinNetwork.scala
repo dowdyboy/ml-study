@@ -8,7 +8,12 @@ import breeze.linalg._
 import breeze.numerics._
 import dl.network.NeuralNetwork._
 
-class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
+case class FullJoinNetworkConf(
+                                argsFilePathOpt:Option[String]=None,
+                                onPracticeIterStartOpt:Option[Int=>Unit]=None,
+                                onPracticeIterEndOpt:Option[Int=>Unit]=None)
+
+class FullJoinNetwork(val layout:Seq[Int],networkConf:FullJoinNetworkConf) extends NeuralNetwork {
 
   var weightsMatrix = scala.collection.mutable.Seq((0 until layout.length-1):_*).map{i=>
     DenseMatrix.rand[Double](layout(i),layout(i+1))
@@ -32,39 +37,6 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
       case NeuralNetwork.CrossEntropyError => cross_entropy_error(predictResultMat,oneHotLabelMat)
       case _=> throw new RuntimeException(s"not support loss function : ${func.getClass.getName}")
     }
-  }
-  private def writeArgs(filePath:String) = {
-    val file = new File(filePath)
-    file.deleteOnExit()
-    file.createNewFile()
-    val bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
-    (0 until weightsMatrix.length).foreach{i=>
-      bw.write(s"weight:${i}")
-      bw.newLine()
-      (0 until weightsMatrix(i).rows).foreach{x=>
-        val sb = new StringBuilder()
-        (0 until weightsMatrix(i).cols).foreach{y=>
-          sb.append(s"${weightsMatrix(i).valueAt(x,y)}")
-          if(y != weightsMatrix(i).cols-1) sb.append(",")
-        }
-        bw.write(sb.toString())
-        bw.newLine()
-      }
-      bw.flush()
-    }
-    (0 until offsetsVector.length).foreach{i=>
-      bw.write(s"offset:${i}")
-      bw.newLine()
-      val sb = new StringBuilder()
-      (0 until offsetsVector(i).length).foreach{x=>
-        sb.append(s"${offsetsVector(i).valueAt(x)}")
-        if(x != offsetsVector(i).length-1) sb.append(",")
-      }
-      bw.write(sb.toString())
-      bw.newLine()
-      bw.flush()
-    }
-    bw.close()
   }
 
   def predict(mat:DenseMatrix[Double],conf:NeuralNetwork.PredictConf):DenseMatrix[Double] = {
@@ -92,8 +64,8 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
       (0 until randIndexSeq.length by conf.batSize).map{i=>
         var seq:scala.collection.mutable.Seq[scala.collection.mutable.Seq[Double]] = scala.collection.mutable.Seq()
         (i until i+conf.batSize).foreach{k=>
-          var rowSeq:scala.collection.mutable.Seq[Double] = scala.collection.mutable.Seq[Double]()
           if(k < randIndexSeq.length) {
+            var rowSeq:scala.collection.mutable.Seq[Double] = scala.collection.mutable.Seq[Double]()
             dataMat(randIndexSeq(k),::).inner.toScalaVector().foreach(x=>rowSeq = rowSeq :+ x)
             seq = seq :+ rowSeq
           }
@@ -130,7 +102,6 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
           val fn1 = func()
           offsetsVector(x).update(i,oldVal - h)
           val fn2 = func()
-          //println(s"${i} : ${oldVal},${fn1},${fn2} : ${(fn1 - fn2) / (2 * h)}")
           gradVec.update(i,(fn1 - fn2) / (2 * h))
           offsetsVector(x).update(i,oldVal)
         }
@@ -161,7 +132,7 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
     val labelMatrixs = generateBatMatrixs(randIndexSeq,labelMat)
 
     (0 until conf.iterNumber).foreach{i=>
-      println(s"iter ${i} start.")
+      if(networkConf.onPracticeIterStartOpt != None) (networkConf.onPracticeIterStartOpt.get)(i)
       val batDataMat = batMatrixs(i % batMatrixs.length)
       val batLabelMat = labelMatrixs(i % batMatrixs.length)
       val lossFunc = generateLossFunc(batDataMat,batLabelMat)
@@ -173,8 +144,8 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
       (0 until offsetsVector.length).foreach{i =>
         offsetsVector.update(i,offsetsVector(i) - (offsetsGradVector(i) * conf.learnRate))
       }
-      if(conf.argsFileNameOpt != None) writeArgs(conf.argsFileNameOpt.get)
-      println(s"iter ${i} finished!")
+      if(networkConf.argsFilePathOpt != None) writeArgs(networkConf.argsFilePathOpt.get)
+      if(networkConf.onPracticeIterEndOpt != None) (networkConf.onPracticeIterEndOpt.get)(i)
     }
   }
   def practice(data:Seq[Seq[Double]],labels:Seq[Seq[Double]],conf:NeuralNetwork.PracticeConf):Unit = {
@@ -213,6 +184,40 @@ class FullJoinNetwork(val layout:Seq[Int]) extends NeuralNetwork {
       line = br.readLine()
     }
     br.close()
+  }
+
+  def writeArgs(filePath:String) = {
+    val file = new File(filePath)
+    file.deleteOnExit()
+    file.createNewFile()
+    val bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))
+    (0 until weightsMatrix.length).foreach{i=>
+      bw.write(s"weight:${i}")
+      bw.newLine()
+      (0 until weightsMatrix(i).rows).foreach{x=>
+        val sb = new StringBuilder()
+        (0 until weightsMatrix(i).cols).foreach{y=>
+          sb.append(s"${weightsMatrix(i).valueAt(x,y)}")
+          if(y != weightsMatrix(i).cols-1) sb.append(",")
+        }
+        bw.write(sb.toString())
+        bw.newLine()
+      }
+      bw.flush()
+    }
+    (0 until offsetsVector.length).foreach{i=>
+      bw.write(s"offset:${i}")
+      bw.newLine()
+      val sb = new StringBuilder()
+      (0 until offsetsVector(i).length).foreach{x=>
+        sb.append(s"${offsetsVector(i).valueAt(x)}")
+        if(x != offsetsVector(i).length-1) sb.append(",")
+      }
+      bw.write(sb.toString())
+      bw.newLine()
+      bw.flush()
+    }
+    bw.close()
   }
 
 }

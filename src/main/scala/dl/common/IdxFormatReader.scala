@@ -132,6 +132,7 @@ object IdxFormatReader {
       case DataType.DOUBLE => doubleSeq(is)
       case _ => throw new RuntimeException("unsupport this type of data in idx format")
     }
+    is.close()
     IdxData(dataType,dimensionsSize,data)
   }
 

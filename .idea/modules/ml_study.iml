@@ -57,10 +57,13 @@
     <orderEntry type="library" name="sbt: org.scalanlp:breeze-natives_2.12:0.13.2:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scalanlp:breeze-viz_2.12:0.13.2:jar" level="project" />
     <orderEntry type="library" name="sbt: org.scalanlp:breeze_2.12:0.13.2:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.5:jar" level="project" />
     <orderEntry type="library" name="sbt: org.spire-math:spire-macros_2.12:0.13.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.spire-math:spire_2.12:0.13.0:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:machinist_2.12:0.6.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.typelevel:macro-compat_2.12:1.1.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.typesafe.scala-logging:scala-logging_2.12:3.9.0:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.slf4j:slf4j-api:1.7.25:jar" level="project" />
+    <orderEntry type="library" name="sbt: ch.qos.logback:logback-classic:1.2.3:jar" level="project" />
+    <orderEntry type="library" name="sbt: ch.qos.logback:logback-core:1.2.3:jar" level="project" />
   </component>
 </module>
