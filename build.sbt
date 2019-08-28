@@ -17,3 +17,17 @@ libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.0"
 // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
+// https://mvnrepository.com/artifact/org.nd4j/nd4j-native
+libraryDependencies += "org.nd4j" % "nd4j-native" % "0.9.1"
+// https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core
+libraryDependencies += "org.deeplearning4j" % "deeplearning4j-core" % "0.9.1"
+// https://mvnrepository.com/artifact/org.deeplearning4j/dl4j-spark
+libraryDependencies += "org.deeplearning4j" %% "dl4j-spark" % "0.9.1_spark_2"
+// https://mvnrepository.com/artifact/org.nd4j/nd4j-kryo
+libraryDependencies += "org.nd4j" %% "nd4j-kryo" % "0.9.1"
+// https://mvnrepository.com/artifact/org.nd4j/nd4j-cuda-8.0
+libraryDependencies += "org.nd4j" % "nd4j-cuda-8.0" % "0.9.1"
+// https://mvnrepository.com/artifact/org.datavec/datavec-api
+libraryDependencies += "org.datavec" % "datavec-api" % "0.9.1"
+
+
