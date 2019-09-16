@@ -1,9 +1,11 @@
 package dl.layer
 
+import breeze.linalg.DenseMatrix
+
 trait Layer {
 
-  def forward
+  def forward(inMat:DenseMatrix[Double]):DenseMatrix[Double]
 
-  def backward
+  def backward(dinMat:DenseMatrix[Double]):DenseMatrix[Double]
 
 }

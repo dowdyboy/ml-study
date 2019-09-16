@@ -5,15 +5,50 @@ import java.awt.image.BufferedImage
 import java.io.File
 
 import breeze.linalg._
+import breeze.numerics._
 import com.typesafe.scalalogging.Logger
 import dl.common.IdxFormatReader
-import dl.network.{FullJoinNetwork, FullJoinNetworkConf, NeuralNetwork}
+import dl.layer.{AffineLayer, ReluLayer, SigmoidLayer, SoftmaxLossLayer}
+import dl.network.{FullJoinNetwork, FullJoinNetworkConf, MLPNetwork, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
 
 object Instances {
 
   val logger = Logger(this.getClass)
+
+  def getParsedData(trainImagePath:String,trainLabelPath:String) = {
+    var imagesIdx = IdxFormatReader.fromFile(trainImagePath)
+    var imagesMatrix = DenseMatrix.tabulate(imagesIdx.dimensionsSize(0),imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)){(i,j)=>
+      imagesIdx.data(i*imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)+j).asInstanceOf[Int]
+    }
+    imagesIdx = null
+    var labelsIdx = IdxFormatReader.fromFile(trainLabelPath)
+    var labelsVector = DenseVector[Int](labelsIdx.data.map(_.toString.toInt).toArray)
+    var labelsMatrix = DenseMatrix.tabulate(labelsVector.length,10){(x,y)=>
+      if(labelsVector(x) == y) 1 else 0
+    }
+    labelsIdx = null
+
+    System.gc()
+
+    val imagesMatrixInput = imagesMatrix.map(_.toDouble)
+    imagesMatrix = null
+    val labelsMatrixInput = labelsMatrix.map(_.toDouble)
+    labelsVector = null
+    labelsMatrix = null
+
+    System.gc()
+
+    val maxVal:Double = max(imagesMatrixInput)
+    (0 until imagesMatrixInput.rows).foreach{i=>
+      (0 until imagesMatrixInput.cols).foreach{k=>
+        imagesMatrixInput.update(i,k,imagesMatrixInput.valueAt(i,k) / maxVal)
+      }
+    }
+
+    (imagesMatrixInput,labelsMatrixInput)
+  }
 
   def idxFormatReaderTest = {
     val idx = IdxFormatReader.fromFile("assets/mnist/t10k-images.idx3-ubyte")
@@ -50,27 +85,8 @@ object Instances {
   }
 
   def testFullJoinNetwork(trainImagePath:String,trainLabelPath:String,argsFilePath:String) = {
-    var imagesIdx = IdxFormatReader.fromFile(trainImagePath)
-    var imagesMatrix = DenseMatrix.tabulate(imagesIdx.dimensionsSize(0),imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)){(i,j)=>
-      imagesIdx.data(i*imagesIdx.dimensionsSize(1)*imagesIdx.dimensionsSize(2)+j).asInstanceOf[Int]
-    }
-    imagesIdx = null
-    var labelsIdx = IdxFormatReader.fromFile(trainLabelPath)
-    var labelsVector = DenseVector[Int](labelsIdx.data.map(_.toString.toInt).toArray)
-    var labelsMatrix = DenseMatrix.tabulate(labelsVector.length,10){(x,y)=>
-      if(labelsVector(x) == y) 1 else 0
-    }
-    labelsIdx = null
 
-    System.gc()
-
-    val imagesMatrixInput = imagesMatrix.map(_.toDouble)
-    imagesMatrix = null
-    val labelsMatrixInput = labelsMatrix.map(_.toDouble)
-    labelsVector = null
-    labelsMatrix = null
-
-    System.gc()
+    val parsedData = getParsedData(trainImagePath,trainLabelPath)
 
     val network = new FullJoinNetwork(
       Seq(784,100,10),
@@ -84,10 +100,66 @@ object Instances {
         }))
     )
     network.practice(
-      imagesMatrixInput,
-      labelsMatrixInput,
+      parsedData._1,
+      parsedData._2,
       PracticeConf(10000,0.1,100,NeuralNetwork.Sigmoid,NeuralNetwork.Softmax,NeuralNetwork.CrossEntropyError)
     )
+  }
+
+  def testLayers = {
+    logger.info("relu:")
+    val reluLayer = new ReluLayer
+    reluLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)))
+    println(reluLayer.backward(DenseMatrix((9.2,10.8,2.1),(9.2,10.8,2.1))))
+
+    logger.info("sigmoid:")
+    val sigmoidLayer = new SigmoidLayer
+    sigmoidLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)))
+    println(sigmoidLayer.backward(DenseMatrix((9.2,10.8,2.1),(9.2,10.8,2.1))))
+
+    logger.info("affine:")
+    val affineLayer = new AffineLayer(
+      DenseMatrix((1.0,2.0,3.0),(4.0,5.0,6.0)),
+      DenseVector(1.0,2.0,3.0)
+    )
+    affineLayer.forward(DenseMatrix((1.0,2.0),(3.0,4.0)))
+    println(affineLayer.backward(DenseMatrix((1.0,2.0,3.0),(4.0,5.0,6.0))))
+    println(affineLayer.dWeightMat)
+    println(affineLayer.dOffsetVec)
+
+    logger.info("softmax:")
+    val softmaxLossLayer = new SoftmaxLossLayer
+    val loss = softmaxLossLayer.forward(
+      DenseMatrix((0.09,0.9,0.01),(0.8,0.1,0.1),(0.8,0.1,0.1),(0.8,0.1,0.1)),
+      DenseMatrix((0.0,0.0,1.0),(0.0,1.0,0.0),(0.0,1.0,0.0),(0.0,1.0,0.0))
+    )
+    println(loss)
+    println(softmaxLossLayer.backward(loss))
+  }
+
+  def testMLPNetwork = {
+
+    //val trainData = getParsedData("assets/mnist/train-images.idx3-ubyte","assets/mnist/train-labels.idx1-ubyte")
+    val parsedData = getParsedData("assets/mnist/t10k-images.idx3-ubyte","assets/mnist/t10k-labels.idx1-ubyte")
+
+    val mlp = new MLPNetwork
+    mlp.iterNumber(1).learningRate(0.1).batchSize(100)
+      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50),DenseVector.zeros[Double](50)))
+      .layer(new SigmoidLayer)
+      .layer(new AffineLayer(DenseMatrix.rand[Double](50,10),DenseVector.zeros[Double](10)))
+      .layer(new SigmoidLayer)
+      .layer(new SoftmaxLossLayer)
+
+    mlp.practice(parsedData._1,parsedData._2)
+
+    val testResultMat = mlp.predict(parsedData._1)
+    (0 until testResultMat.rows).foreach{i=>
+//      logger.info(testResultMat(i,::).inner.toString())
+//      logger.info(s"${argmax(testResultMat(i,::).inner)}")
+//      val testLab = argmax(testResultMat(i,::).inner)
+//      val result = parsedData._2(i,::).inner.valueAt(testLab)
+//      println(s"${if(result == 1.0) "Right" else "Wrong"} - ${testLab} - ${result}")
+    }
   }
 
 }
