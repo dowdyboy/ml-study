@@ -2,7 +2,6 @@ package dl.layer
 import breeze.linalg._
 import breeze.numerics._
 import com.typesafe.scalalogging.Logger
-import dl.common.DLog
 
 class SoftmaxLossLayer extends LossLayer {
 
@@ -25,9 +24,7 @@ class SoftmaxLossLayer extends LossLayer {
   }
 
   override def forward(dataMat: DenseMatrix[Double], labelMat: DenseMatrix[Double]):Double = {
-    DLog.logMat(logger,dataMat)
     softmaxResultMat = softmax(dataMat)
-    DLog.logMat(logger,softmaxResultMat)
     this.labelMat = labelMat.copy
     val errorVec = cross_entropy_error(softmaxResultMat,labelMat)
     sum(errorVec) / errorVec.length.toDouble

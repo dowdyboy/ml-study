@@ -1,7 +1,6 @@
 package dl.layer
 import breeze.linalg._
 import com.typesafe.scalalogging.Logger
-import dl.common.DLog
 
 class ReluLayer extends Layer {
 

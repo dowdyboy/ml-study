@@ -139,27 +139,30 @@ object Instances {
 
   def testMLPNetwork = {
 
-    //val trainData = getParsedData("assets/mnist/train-images.idx3-ubyte","assets/mnist/train-labels.idx1-ubyte")
+    val trainData = getParsedData("assets/mnist/train-images.idx3-ubyte","assets/mnist/train-labels.idx1-ubyte")
     val parsedData = getParsedData("assets/mnist/t10k-images.idx3-ubyte","assets/mnist/t10k-labels.idx1-ubyte")
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(1).learningRate(0.1).batchSize(100)
-      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50),DenseVector.zeros[Double](50)))
-      .layer(new SigmoidLayer)
-      .layer(new AffineLayer(DenseMatrix.rand[Double](50,10),DenseVector.zeros[Double](10)))
-      .layer(new SigmoidLayer)
+    mlp.iterNumber(10000).learningRate(0.1).batchSize(100)
+      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50).map(_ * 0.01),DenseVector.zeros[Double](50)))
+      .layer(new ReluLayer)
+      //.layer(new SigmoidLayer)
+      .layer(new AffineLayer(DenseMatrix.rand[Double](50,10).map(_ * 0.01),DenseVector.zeros[Double](10)))
+      //.layer(new ReluLayer)
       .layer(new SoftmaxLossLayer)
 
-    mlp.practice(parsedData._1,parsedData._2)
+    mlp.practice(trainData._1,trainData._2)
 
+    var rightCount = 0
     val testResultMat = mlp.predict(parsedData._1)
     (0 until testResultMat.rows).foreach{i=>
-//      logger.info(testResultMat(i,::).inner.toString())
-//      logger.info(s"${argmax(testResultMat(i,::).inner)}")
-//      val testLab = argmax(testResultMat(i,::).inner)
-//      val result = parsedData._2(i,::).inner.valueAt(testLab)
-//      println(s"${if(result == 1.0) "Right" else "Wrong"} - ${testLab} - ${result}")
+      val testLab = argmax(testResultMat(i,::).inner)
+      val rightLab = argmax(parsedData._2(i,::).inner)
+      if(testLab == rightLab) rightCount += 1
+      println(s"${if(testLab == rightLab) "Right" else "Wrong"} - ${testLab} - ${rightLab}")
     }
+    println(s"${(rightCount.toDouble / testResultMat.rows.toDouble) * 100}")
+    println(s"right:${rightCount} , total:${testResultMat.rows}")
   }
 
 }
