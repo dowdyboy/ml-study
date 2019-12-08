@@ -5,8 +5,6 @@ import com.typesafe.scalalogging.Logger
 
 class SigmoidLayer extends Layer {
 
-  val logger = Logger(this.getClass)
-
   private var outMat:DenseMatrix[Double] =  null
 
   override def forward(inMat: DenseMatrix[Double]): DenseMatrix[Double] = {

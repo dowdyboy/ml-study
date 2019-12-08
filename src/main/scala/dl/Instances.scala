@@ -9,9 +9,11 @@ import breeze.numerics._
 import com.typesafe.scalalogging.Logger
 import dl.common.IdxFormatReader
 import dl.layer.{AffineLayer, ReluLayer, SigmoidLayer, SoftmaxLossLayer}
+import dl.monitor.Monitor
 import dl.network.{FullJoinNetwork, FullJoinNetworkConf, MLPNetwork, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
+import dl.optimizer.SGDOptimizer
 
 object Instances {
 
@@ -141,28 +143,37 @@ object Instances {
 
     val trainData = getParsedData("assets/mnist/train-images.idx3-ubyte","assets/mnist/train-labels.idx1-ubyte")
     val parsedData = getParsedData("assets/mnist/t10k-images.idx3-ubyte","assets/mnist/t10k-labels.idx1-ubyte")
+    val accurancy = (mlp:MLPNetwork,imageMat:DenseMatrix[Double],labelMat:DenseMatrix[Double])=>{
+      var rightCount = 0
+      val testResultMat = mlp.predict(imageMat)
+      val loss = mlp.layer()._2.forward(testResultMat,labelMat)
+      (0 until testResultMat.rows).foreach{i=>
+        val testLab = argmax(testResultMat(i,::).inner)
+        val rightLab = argmax(labelMat(i,::).inner)
+        if(testLab == rightLab) rightCount += 1
+      }
+      ((rightCount.toDouble / testResultMat.rows.toDouble) * 100,rightCount,loss)
+    }
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(10000).learningRate(0.1).batchSize(100)
+    mlp.iterNumber(10000).learningRate(0.1).batchSize(100).optimize(new SGDOptimizer)
       .layer(new AffineLayer(DenseMatrix.rand[Double](784,50).map(_ * 0.01),DenseVector.zeros[Double](50)))
       .layer(new ReluLayer)
-      //.layer(new SigmoidLayer)
       .layer(new AffineLayer(DenseMatrix.rand[Double](50,10).map(_ * 0.01),DenseVector.zeros[Double](10)))
       //.layer(new ReluLayer)
       .layer(new SoftmaxLossLayer)
+      .monite(new Monitor {
+        override def eachEpoch(epochCount: Int): Unit = {
+          val trainRst = accurancy(mlp,trainData._1,trainData._2)
+          val testRst = accurancy(mlp,parsedData._1,parsedData._2)
+          logger.info(s"epoch ${epochCount} : train data : accurancy(${trainRst._1}%) loss(${trainRst._3})")
+          logger.info(s"epoch ${epochCount} : test data : accurancy(${testRst._1}%) loss(${testRst._3})")
+        }
+        override def eachIter(iterCount: Int): Unit = {}
+      })
 
     mlp.practice(trainData._1,trainData._2)
 
-    var rightCount = 0
-    val testResultMat = mlp.predict(parsedData._1)
-    (0 until testResultMat.rows).foreach{i=>
-      val testLab = argmax(testResultMat(i,::).inner)
-      val rightLab = argmax(parsedData._2(i,::).inner)
-      if(testLab == rightLab) rightCount += 1
-      println(s"${if(testLab == rightLab) "Right" else "Wrong"} - ${testLab} - ${rightLab}")
-    }
-    println(s"${(rightCount.toDouble / testResultMat.rows.toDouble) * 100}")
-    println(s"right:${rightCount} , total:${testResultMat.rows}")
   }
 
 }

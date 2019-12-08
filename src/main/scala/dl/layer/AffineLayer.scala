@@ -4,8 +4,6 @@ import com.typesafe.scalalogging.Logger
 
 class AffineLayer(var weightMat:DenseMatrix[Double],var offsetVec:DenseVector[Double]) extends Layer {
 
-  val logger = Logger(this.getClass)
-
   private var xMat:DenseMatrix[Double] = null
 
   var dWeightMat:DenseMatrix[Double] = null
@@ -20,11 +18,6 @@ class AffineLayer(var weightMat:DenseMatrix[Double],var offsetVec:DenseVector[Do
     dWeightMat = xMat.t * dinMat
     dOffsetVec = sum(dinMat,Axis._0).inner
     dinMat * weightMat.t
-  }
-
-  def update(learnRate:Double) = {
-    weightMat = weightMat - (DenseMatrix.tabulate(dWeightMat.rows,dWeightMat.cols)((x,y) => learnRate) *:* dWeightMat)
-    offsetVec = offsetVec - (learnRate * dOffsetVec)
   }
 
 }

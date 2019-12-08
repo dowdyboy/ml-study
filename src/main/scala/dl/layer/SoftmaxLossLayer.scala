@@ -5,8 +5,6 @@ import com.typesafe.scalalogging.Logger
 
 class SoftmaxLossLayer extends LossLayer {
 
-  val logger = Logger(this.getClass)
-
   private var softmaxResultMat:DenseMatrix[Double] = null
   private var labelMat:DenseMatrix[Double] = null
 

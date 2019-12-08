@@ -7,15 +7,17 @@ import com.typesafe.scalalogging.Logger
 
 import scala.collection.JavaConverters._
 import dl.layer.{AffineLayer, Layer, LossLayer}
+import dl.monitor.Monitor
+import dl.optimizer.Optimizer
 
 
 class MLPNetwork {
 
-  val logger = Logger(this.getClass)
-
   private var iterNum:Int = 0
   private var batSize:Int = 0
   private var learnRate:Double = 0.0
+  private var optimizer:Optimizer = null
+  private var monitor:Monitor = null
 
   private var layers = Seq[Layer]()
   private var lossLayer:LossLayer = null
@@ -56,7 +58,9 @@ class MLPNetwork {
     (0 until layers.length).foreach{i => dout = layers(layers.length-1-i).backward(dout)}
     (0 until layers.length).foreach{i=>
       if(layers(i).isInstanceOf[AffineLayer]){
-        layers(i).asInstanceOf[AffineLayer].update(learnRate)
+        val affineLayer = layers(i).asInstanceOf[AffineLayer]
+        affineLayer.weightMat = optimizer.update(affineLayer.weightMat,affineLayer.dWeightMat,learnRate)
+        affineLayer.offsetVec = optimizer.update(affineLayer.offsetVec,affineLayer.dOffsetVec,learnRate)
       }
     }
   }
@@ -89,6 +93,19 @@ class MLPNetwork {
   }
   def layer() = (layers,lossLayer)
 
+  def optimize(optimizer: Optimizer) = {
+    this.optimizer = optimizer
+    this
+  }
+  def optimize() = optimizer
+
+  def monite(monitor: Monitor) = {
+    this.monitor = monitor
+    this
+  }
+  def monite() = monitor
+
+
   def predict(dataMat:DenseMatrix[Double]) = {
     var mat:DenseMatrix[Double] = dataMat
     (0 until layers.length).foreach{i=>
@@ -100,14 +117,19 @@ class MLPNetwork {
   def practice(dataMat:DenseMatrix[Double],labelMat:DenseMatrix[Double]) = {
     var batSeq = generateBatData(dataMat,labelMat)
     var batCount = 0
+    var epochCount = 0
     (0 until iterNum).foreach{i=>
       if(batCount >= batSeq.length){
         batSeq = generateBatData(dataMat,labelMat)
         batCount = 0
+        if(monitor != null) monitor.eachEpoch(epochCount)
+        epochCount += 1
+        System.gc()
       }
       val batMat = batSeq(i % batSeq.length)
       updateWeightsOffsets(batMat._1,batMat._2)
       batCount += 1
+      if(monitor != null) monitor.eachIter(i)
     }
   }
 
