@@ -13,7 +13,7 @@ import dl.monitor.Monitor
 import dl.network.{FullJoinNetwork, FullJoinNetworkConf, MLPNetwork, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
-import dl.optimizer.SGDOptimizer
+import dl.optimizer.{AdaGradOptimizer, MomentumOptimizer, SGDOptimizer}
 
 object Instances {
 
@@ -156,7 +156,7 @@ object Instances {
     }
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(10000).learningRate(0.1).batchSize(100).optimize(new SGDOptimizer)
+    mlp.iterNumber(10000).batchSize(100).optimize(new AdaGradOptimizer(0.1))
       .layer(new AffineLayer(DenseMatrix.rand[Double](784,50).map(_ * 0.01),DenseVector.zeros[Double](50)))
       .layer(new ReluLayer)
       .layer(new AffineLayer(DenseMatrix.rand[Double](50,10).map(_ * 0.01),DenseVector.zeros[Double](10)))
@@ -169,7 +169,6 @@ object Instances {
           logger.info(s"epoch ${epochCount} : train data : accurancy(${trainRst._1}%) loss(${trainRst._3})")
           logger.info(s"epoch ${epochCount} : test data : accurancy(${testRst._1}%) loss(${testRst._3})")
         }
-        override def eachIter(iterCount: Int): Unit = {}
       })
 
     mlp.practice(trainData._1,trainData._2)

@@ -15,7 +15,6 @@ class MLPNetwork {
 
   private var iterNum:Int = 0
   private var batSize:Int = 0
-  private var learnRate:Double = 0.0
   private var optimizer:Optimizer = null
   private var monitor:Monitor = null
 
@@ -59,8 +58,8 @@ class MLPNetwork {
     (0 until layers.length).foreach{i=>
       if(layers(i).isInstanceOf[AffineLayer]){
         val affineLayer = layers(i).asInstanceOf[AffineLayer]
-        affineLayer.weightMat = optimizer.update(affineLayer.weightMat,affineLayer.dWeightMat,learnRate)
-        affineLayer.offsetVec = optimizer.update(affineLayer.offsetVec,affineLayer.dOffsetVec,learnRate)
+        affineLayer.weightMat = optimizer.update(i,affineLayer.weightMat,affineLayer.dWeightMat)
+        affineLayer.offsetVec = optimizer.update(i,affineLayer.offsetVec,affineLayer.dOffsetVec)
       }
     }
   }
@@ -74,12 +73,6 @@ class MLPNetwork {
   def batchSize() = batSize
   def batchSize(size:Int) = {
     batSize = size
-    this
-  }
-
-  def learningRate() = learnRate
-  def learningRate(rate:Double) = {
-    learnRate = rate
     this
   }
 
