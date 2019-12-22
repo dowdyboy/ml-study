@@ -13,7 +13,7 @@ import dl.monitor.Monitor
 import dl.network.{FullJoinNetwork, FullJoinNetworkConf, MLPNetwork, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
-import dl.optimizer.{AdaGradOptimizer, MomentumOptimizer, SGDOptimizer}
+import dl.optimizer.{AdaGradOptimizer, AdamOptimizer, MomentumOptimizer, SGDOptimizer}
 
 object Instances {
 
@@ -156,7 +156,7 @@ object Instances {
     }
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(10000).batchSize(100).optimize(new AdaGradOptimizer(0.1))
+    mlp.iterNumber(10000).batchSize(100).optimize(new AdamOptimizer(0.001))
       .layer(new AffineLayer(DenseMatrix.rand[Double](784,50).map(_ * 0.01),DenseVector.zeros[Double](50)))
       .layer(new ReluLayer)
       .layer(new AffineLayer(DenseMatrix.rand[Double](50,10).map(_ * 0.01),DenseVector.zeros[Double](10)))
