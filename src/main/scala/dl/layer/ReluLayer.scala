@@ -6,7 +6,7 @@ class ReluLayer extends Layer {
 
   private var maskMat:DenseMatrix[Double] = null
 
-  override def forward(inMat: DenseMatrix[Double]): DenseMatrix[Double] = {
+  override def forward(inMat: DenseMatrix[Double],isTrain:Boolean): DenseMatrix[Double] = {
     maskMat = inMat.map(x=>{if(x>0) 1.0 else 0.0})
     inMat.map(x=>{if(x>0) x else 0.0})
   }

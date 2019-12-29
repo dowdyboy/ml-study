@@ -3,14 +3,19 @@ package dl.network
 import java.util.{ArrayList, Collections}
 
 import breeze.linalg.DenseMatrix
-import com.typesafe.scalalogging.Logger
 
 import scala.collection.JavaConverters._
-import dl.layer.{AffineLayer, Layer, LossLayer}
+import dl.layer.{AffineLayer, BatchNormLayer, Layer, LossLayer}
 import dl.monitor.Monitor
+import dl.network.MLPNetwork.{He, InitialWeightValue, Xavier}
 import dl.optimizer.Optimizer
 
 
+object MLPNetwork {
+  trait InitialWeightValue
+  case object Xavier extends InitialWeightValue
+  case object He extends InitialWeightValue
+}
 class MLPNetwork {
 
   private var iterNum:Int = 0
@@ -52,7 +57,7 @@ class MLPNetwork {
   }
 
   private def updateWeightsOffsets(batDataMat:DenseMatrix[Double],batLabelMat:DenseMatrix[Double]) = {
-    val loss = lossLayer.forward(predict(batDataMat),batLabelMat)
+    val loss = lossLayer.forward(predict(batDataMat,true),batLabelMat)
     var dout = lossLayer.backward(1.0)
     (0 until layers.length).foreach{i => dout = layers(layers.length-1-i).backward(dout)}
     (0 until layers.length).foreach{i=>
@@ -60,6 +65,11 @@ class MLPNetwork {
         val affineLayer = layers(i).asInstanceOf[AffineLayer]
         affineLayer.weightMat = optimizer.update(i,affineLayer.weightMat,affineLayer.dWeightMat)
         affineLayer.offsetVec = optimizer.update(i,affineLayer.offsetVec,affineLayer.dOffsetVec)
+      }
+      if(layers(i).isInstanceOf[BatchNormLayer]){
+        val batchNormLayer = layers(i).asInstanceOf[BatchNormLayer]
+        batchNormLayer.gammaMat = optimizer.update(i,batchNormLayer.gammaMat,batchNormLayer.dGammaMat)
+        batchNormLayer.betaMat = optimizer.update(i,batchNormLayer.betaMat,batchNormLayer.dBetaMat)
       }
     }
   }
@@ -98,11 +108,30 @@ class MLPNetwork {
   }
   def monite() = monitor
 
+  def weightValues(valueType:InitialWeightValue) = {
+    valueType match {
+      case Xavier =>
+        (0 until layers.length).foreach{i=>
+          if(layers(i).isInstanceOf[AffineLayer]){
+            val affineLayer = layers(i).asInstanceOf[AffineLayer]
+            affineLayer.weightMat = affineLayer.weightMat / Math.sqrt(affineLayer.weightMat.rows.toDouble)
+          }
+        }
+      case He =>
+        (0 until layers.length).foreach{i=>
+          if(layers(i).isInstanceOf[AffineLayer]){
+            val affineLayer = layers(i).asInstanceOf[AffineLayer]
+            affineLayer.weightMat = affineLayer.weightMat *:* Math.sqrt(2.0 / affineLayer.weightMat.rows.toDouble)
+          }
+        }
+    }
+    this
+  }
 
-  def predict(dataMat:DenseMatrix[Double]) = {
+  def predict(dataMat:DenseMatrix[Double],isTrain:Boolean = false) = {
     var mat:DenseMatrix[Double] = dataMat
     (0 until layers.length).foreach{i=>
-      mat = layers(i).forward(mat)
+      mat = layers(i).forward(mat,isTrain)
     }
     mat
   }

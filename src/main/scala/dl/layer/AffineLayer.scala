@@ -9,7 +9,7 @@ class AffineLayer(var weightMat:DenseMatrix[Double],var offsetVec:DenseVector[Do
   var dWeightMat:DenseMatrix[Double] = null
   var dOffsetVec:DenseVector[Double] = null
 
-  override def forward(inMat: DenseMatrix[Double]): DenseMatrix[Double] = {
+  override def forward(inMat: DenseMatrix[Double],isTrain:Boolean): DenseMatrix[Double] = {
     xMat = inMat.copy
     (inMat * weightMat) + tile(offsetVec.t,1,inMat.rows)
   }

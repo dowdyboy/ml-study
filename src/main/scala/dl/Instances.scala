@@ -8,8 +8,9 @@ import breeze.linalg._
 import breeze.numerics._
 import com.typesafe.scalalogging.Logger
 import dl.common.IdxFormatReader
-import dl.layer.{AffineLayer, ReluLayer, SigmoidLayer, SoftmaxLossLayer}
+import dl.layer.{AffineLayer, BatchNormLayer, DropoutLayer, ReluLayer, SigmoidLayer, SoftmaxLossLayer}
 import dl.monitor.Monitor
+import dl.network.MLPNetwork.{He, Xavier}
 import dl.network.{FullJoinNetwork, FullJoinNetworkConf, MLPNetwork, NeuralNetwork}
 import javax.imageio.ImageIO
 import dl.network.NeuralNetwork._
@@ -42,12 +43,12 @@ object Instances {
 
     System.gc()
 
-    val maxVal:Double = max(imagesMatrixInput)
-    (0 until imagesMatrixInput.rows).foreach{i=>
-      (0 until imagesMatrixInput.cols).foreach{k=>
-        imagesMatrixInput.update(i,k,imagesMatrixInput.valueAt(i,k) / maxVal)
-      }
-    }
+//    val maxVal:Double = max(imagesMatrixInput)
+//    (0 until imagesMatrixInput.rows).foreach{i=>
+//      (0 until imagesMatrixInput.cols).foreach{k=>
+//        imagesMatrixInput.update(i,k,imagesMatrixInput.valueAt(i,k) / maxVal)
+//      }
+//    }
 
     (imagesMatrixInput,labelsMatrixInput)
   }
@@ -111,12 +112,12 @@ object Instances {
   def testLayers = {
     logger.info("relu:")
     val reluLayer = new ReluLayer
-    reluLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)))
+    reluLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)),false)
     println(reluLayer.backward(DenseMatrix((9.2,10.8,2.1),(9.2,10.8,2.1))))
 
     logger.info("sigmoid:")
     val sigmoidLayer = new SigmoidLayer
-    sigmoidLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)))
+    sigmoidLayer.forward(DenseMatrix((1.2,-0.2,1.8),(-1.2,0.2,-1.8)),false)
     println(sigmoidLayer.backward(DenseMatrix((9.2,10.8,2.1),(9.2,10.8,2.1))))
 
     logger.info("affine:")
@@ -124,7 +125,7 @@ object Instances {
       DenseMatrix((1.0,2.0,3.0),(4.0,5.0,6.0)),
       DenseVector(1.0,2.0,3.0)
     )
-    affineLayer.forward(DenseMatrix((1.0,2.0),(3.0,4.0)))
+    affineLayer.forward(DenseMatrix((1.0,2.0),(3.0,4.0)),false)
     println(affineLayer.backward(DenseMatrix((1.0,2.0,3.0),(4.0,5.0,6.0))))
     println(affineLayer.dWeightMat)
     println(affineLayer.dOffsetVec)
@@ -156,12 +157,15 @@ object Instances {
     }
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(10000).batchSize(100).optimize(new AdamOptimizer(0.001))
-      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50).map(_ * 0.01),DenseVector.zeros[Double](50)))
+    mlp.iterNumber(10000).batchSize(100).optimize(new MomentumOptimizer(0.1,0.9))
+      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50),DenseVector.zeros[Double](50)))
+      .layer(new BatchNormLayer())
       .layer(new ReluLayer)
-      .layer(new AffineLayer(DenseMatrix.rand[Double](50,10).map(_ * 0.01),DenseVector.zeros[Double](10)))
+      .layer(new DropoutLayer())
+      .layer(new AffineLayer(DenseMatrix.rand[Double](50,10),DenseVector.zeros[Double](10)))
       //.layer(new ReluLayer)
       .layer(new SoftmaxLossLayer)
+      //.weightValues(He)
       .monite(new Monitor {
         override def eachEpoch(epochCount: Int): Unit = {
           val trainRst = accurancy(mlp,trainData._1,trainData._2)

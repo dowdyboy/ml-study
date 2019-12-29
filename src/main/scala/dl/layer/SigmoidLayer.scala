@@ -7,7 +7,7 @@ class SigmoidLayer extends Layer {
 
   private var outMat:DenseMatrix[Double] =  null
 
-  override def forward(inMat: DenseMatrix[Double]): DenseMatrix[Double] = {
+  override def forward(inMat: DenseMatrix[Double],isTrain:Boolean): DenseMatrix[Double] = {
     val out = sigmoid(inMat)
     outMat = out.copy
     out
