@@ -157,8 +157,12 @@ object Instances {
     }
 
     val mlp = new MLPNetwork
-    mlp.iterNumber(10000).batchSize(100).optimize(new MomentumOptimizer(0.1,0.9))
-      .layer(new AffineLayer(DenseMatrix.rand[Double](784,50),DenseVector.zeros[Double](50)))
+    mlp.iterNumber(10000).batchSize(73).optimize(new AdamOptimizer(0.1))
+      .layer(new AffineLayer(DenseMatrix.rand[Double](784,100),DenseVector.zeros[Double](100)))
+      .layer(new BatchNormLayer())
+      .layer(new ReluLayer)
+      .layer(new DropoutLayer())
+      .layer(new AffineLayer(DenseMatrix.rand[Double](100,50),DenseVector.zeros[Double](50)))
       .layer(new BatchNormLayer())
       .layer(new ReluLayer)
       .layer(new DropoutLayer())
